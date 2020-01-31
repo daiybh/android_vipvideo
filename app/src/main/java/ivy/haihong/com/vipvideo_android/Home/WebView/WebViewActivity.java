@@ -87,15 +87,7 @@ public class WebViewActivity extends AppCompatActivity {
                 ServerManager manager = ServerManager.getInstance();
                 String current = manager.getCurrentServer();
                 String webViewurl = mWebView.getUrl();
-                String js = "javascript: var myVideo = document.getElementsByTagName('video');";
-                js+="if(myVideo!=undefined) { ";
-                js+="myVideo[0].play();void(0);";
-                js+=" myVideo[0].webkitEnterFullscreen();void(0)";
-                js+="}";
-                //js ="javascript:document.getElementsByClassName('btn_play')[0].click();void(0);";
-                //js ="javascript:document.getElementsByTagName('public-screen')[0].play();void(0);";
-                //js ="javascript:document.getElementsByTagName('video')[0].play();void(0);";
-                mWebView.loadUrl(js);
+                autoPlay();
 //                if (webViewurl.contains("url="))
 //                {
 //                    mWebView.reload();
@@ -124,6 +116,8 @@ public class WebViewActivity extends AppCompatActivity {
             public void onClick(View view) {
                String originUR = mWebView.getOriginalUrl();
                 Log.i("urlget",originUR);
+                String js="javascript:";
+
             }
         });
     }
@@ -222,10 +216,32 @@ public class WebViewActivity extends AppCompatActivity {
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
                 Log.i("urlget","onpageinished");
+
+              //  autoPlay();
+            }
+
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                if (!url.startsWith("http") && !url.startsWith("file")) {
+                    Log.i("urlget","shouldOverrideUrlLoading"+url);
+                    return true;
+                }
+                return super.shouldOverrideUrlLoading(view, url);
             }
         });
         mWebView.canGoBack();
         mWebView.loadUrl(currentLoadURL);
+    }
+    public void  autoPlay(){
+        String js = "javascript: var myVideo = document.getElementsByTagName('video');";
+        js+="if(myVideo!=undefined) { ";
+        js+="myVideo[0].play();void(0);";
+        js+=" myVideo[0].webkitEnterFullscreen();void(0)";
+        js+="}";
+        //js ="javascript:document.getElementsByClassName('btn_play')[0].click();void(0);";
+        //js ="javascript:document.getElementsByTagName('public-screen')[0].play();void(0);";
+        //js ="javascript:document.getElementsByTagName('video')[0].play();void(0);";
+        mWebView.loadUrl(js);
     }
 
 }

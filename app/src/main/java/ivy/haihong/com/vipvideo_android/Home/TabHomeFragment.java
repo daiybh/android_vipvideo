@@ -69,6 +69,8 @@ public class TabHomeFragment extends Fragment {
         targetURLS.add("https://movie.youku.com/");
         //targetURLS.add("https://www.iqiyi.com/dianying/");
         targetURLS.add("https://m.iqiyi.com/v_19rvwbg5lk.html?list=19rr9727c2");
+        targetURLS.add("https://www.iqiyi.com/v_19rr7p0ns4.html?key=497e5c296ca7ff592f821e933523f96a");
+        targetURLS.add("https://www.iqiyi.com/iframe/loginreg?ver=1");
         targetURLS.add("https://www.mgtv.com/movie/");
         targetURLS.add("http://movie.le.com/");
         targetURLS.add("https://v.qq.com/channel/movie");
