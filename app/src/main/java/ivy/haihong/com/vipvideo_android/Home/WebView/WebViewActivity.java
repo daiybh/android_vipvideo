@@ -87,11 +87,14 @@ public class WebViewActivity extends AppCompatActivity {
                 ServerManager manager = ServerManager.getInstance();
                 String current = manager.getCurrentServer();
                 String webViewurl = mWebView.getUrl();
-                String js = "javascript:";
-                js+="var myVideo = document.getElementsByTagName('video');";
-                js+="if(myVideo!=undefined) { alert(myVideo+'--'+myVideo.length);";
-                js+="myVideo[0].play();";
-                js+=" myVideo[0].webkitEnterFullscreen();}";
+                String js = "javascript: var myVideo = document.getElementsByTagName('video');";
+                js+="if(myVideo!=undefined) { ";
+                js+="myVideo[0].play();void(0);";
+                js+=" myVideo[0].webkitEnterFullscreen();void(0)";
+                js+="}";
+                //js ="javascript:document.getElementsByClassName('btn_play')[0].click();void(0);";
+                //js ="javascript:document.getElementsByTagName('public-screen')[0].play();void(0);";
+                //js ="javascript:document.getElementsByTagName('video')[0].play();void(0);";
                 mWebView.loadUrl(js);
 //                if (webViewurl.contains("url="))
 //                {
@@ -214,7 +217,13 @@ public class WebViewActivity extends AppCompatActivity {
 //
 //            }
 //        });
-        mWebView.setWebViewClient(new WebViewClient());
+        mWebView.setWebViewClient(new WebViewClient(){
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                Log.i("urlget","onpageinished");
+            }
+        });
         mWebView.canGoBack();
         mWebView.loadUrl(currentLoadURL);
     }
