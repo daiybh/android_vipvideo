@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
@@ -117,7 +118,40 @@ public class WebViewActivity extends AppCompatActivity {
             }
         });
     }
+    private class MyWebChromeClient extends WebChromeClient {
+        private View myView = null;
+        private CustomViewCallback myCallback = null;
 
+        @Override
+        public void onShowCustomView(View view, CustomViewCallback callback) {
+            if (myCallback != null) {
+                myCallback.onCustomViewHidden();
+                myCallback = null;
+                return;
+            }
+
+            ViewGroup parent = (ViewGroup) mWebView.getParent();
+            parent.removeView(mWebView);
+            parent.addView(view);
+            myView = view;
+            myCallback = callback;
+        }
+
+        @Override
+        public void onHideCustomView() {
+            if (myView != null) {
+                if (myCallback != null) {
+                    myCallback.onCustomViewHidden();
+                    myCallback = null;
+                }
+
+                ViewGroup parent = (ViewGroup) myView.getParent();
+                parent.removeView(myView);
+                parent.addView(mWebView);
+                myView = null;
+            }
+        }
+    }
     private void setupWebView()
     {
         WebSettings ws = mWebView.getSettings();
@@ -159,20 +193,21 @@ public class WebViewActivity extends AppCompatActivity {
         ws.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
 
         //这行很关键
-        mWebView.setWebChromeClient(new WebChromeClient(){
-            @Override
-            public View getVideoLoadingProgressView() {
-                FrameLayout frameLayout = new FrameLayout(WebViewActivity.this);
-                frameLayout.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
-                return frameLayout;
-            }
-
-            @Override
-            public void onShowCustomView(View view, CustomViewCallback callback) {
-                super.onShowCustomView(view, callback);
-
-            }
-        });
+        mWebView.setWebChromeClient(new MyWebChromeClient());
+//        mWebView.setWebChromeClient(new WebChromeClient(){
+//            @Override
+//            public View getVideoLoadingProgressView() {
+//                FrameLayout frameLayout = new FrameLayout(WebViewActivity.this);
+//                frameLayout.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
+//                return frameLayout;
+//            }
+//
+//            @Override
+//            public void onShowCustomView(View view, CustomViewCallback callback) {
+//                super.onShowCustomView(view, callback);
+//
+//            }
+//        });
         mWebView.setWebViewClient(new WebViewClient());
         mWebView.canGoBack();
         mWebView.loadUrl(currentLoadURL);

@@ -55,13 +55,14 @@ public class TabHomeFragment extends Fragment {
     private void loadData()
     {
         ArrayList<String> imageurls = new ArrayList<>();
-        imageurls.add("http://app.baiyug.cn:2019/img/youkulogo.png");
-        imageurls.add("http://app.baiyug.cn:2019/img/iqiyilogo.png");
-        imageurls.add("http://app.baiyug.cn:2019/img/hunantvlogo.png");
-        imageurls.add("http://app.baiyug.cn:2019/img/letvlogo.png");
-        imageurls.add("http://app.baiyug.cn:2019/img/qq.png");
-        imageurls.add("http://app.baiyug.cn:2019/img/sohulogo.png");
-        imageurls.add("http://app.baiyug.cn:2019/img/pptvlogo.png");
+        imageurls.add("https://img.alicdn.com/tfs/TB1WeJ9Xrj1gK0jSZFuXXcrHpXa-195-195.png");
+        imageurls.add("https://www.iqiyipic.com/common/fix/site-v4/sprite-headLogo-nonIndex.png");
+        //imageurls.add("https://img.mgtv.com/imgotv-channel/6.1.7/pcweb-header/svg/logo.svg");
+        imageurls.add("http://www.wkun.com/zt/hunantv_logo/images/logo07.jpg");
+        imageurls.add("http://static.letvcdn.com/lc04_phone/201803/01/15/01/logo_red.svg");
+        imageurls.add("https://vm.gtimg.cn/tencentvideo/vstyle/web/v6/style/img/common/sprite_head_logo.svg");
+        imageurls.add("https://css.tv.itc.cn/channel/v2/header-images/logo-sohu2.svg");
+        imageurls.add("http://sr1.pplive.cn/mcms/nav/images/1508317145889.png");
 
 
         ArrayList<String> targetURLS = new ArrayList<>();
@@ -73,9 +74,18 @@ public class TabHomeFragment extends Fragment {
         targetURLS.add("https://tv.sohu.com/movie/");
         targetURLS.add("http://movie.pptv.com/");
 
+        ArrayList<String> targetNames=new ArrayList<>();
+
+        for(int i=0;i<targetURLS.size();i++)
+        {
+            String s = targetURLS.get(i);
+            String sAr[]  =s.split("\\.");
+            targetNames.add(sAr[1]);
+        }
+
         ArrayList<VideoModel> mArr = new ArrayList<>();
         for (int i=0; i<imageurls.size(); i++) {
-            VideoModel model = new VideoModel(imageurls.get(i),targetURLS.get(i));
+            VideoModel model = new VideoModel(imageurls.get(i),targetURLS.get(i),targetNames.get(i));
             mArr.add(model);
         }
         mDataSource = mArr;

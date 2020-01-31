@@ -39,7 +39,8 @@
         <activity
             android:name=".Home.WebView.WebViewActivity"
             android:label="@string/title_activity_web_view"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:hardwareAccelerated="true"></activity>
     </application>
 
 </manifest>

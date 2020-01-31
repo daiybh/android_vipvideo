@@ -55,6 +55,8 @@ public class HomeLostAdapter extends BaseAdapter {
             convertView = View.inflate(mContext, R.layout.home_list_layout, null);
             holder1 = new ViewHolder();
             holder1.leftImageView = (ImageView) convertView.findViewById(R.id.home_left_img);
+            holder1.textView = (TextView)convertView.findViewById(R.id.textView);
+            holder1.textView.setText(mHotList.get(position).getShowName());
             convertView.setTag(holder1);
         }
         else
@@ -64,6 +66,7 @@ public class HomeLostAdapter extends BaseAdapter {
         VideoModel keyValuePair = mHotList.get(position);
         Glide.with(mContext).load(keyValuePair.getImageUrl())
                 .into(holder1.leftImageView);
+
         return convertView;
     }
 
@@ -71,5 +74,6 @@ public class HomeLostAdapter extends BaseAdapter {
     class ViewHolder
     {
         ImageView leftImageView;
+        TextView textView;
     }
 }

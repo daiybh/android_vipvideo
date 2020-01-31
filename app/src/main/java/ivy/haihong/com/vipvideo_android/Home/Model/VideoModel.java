@@ -7,14 +7,19 @@ package ivy.haihong.com.vipvideo_android.Home.Model;
 public class VideoModel extends Object {
     private String imageUrl;
     private String targetURL;
+    private String showName;
 
-    public VideoModel(String imageUrl, String targetURL) {
+    public VideoModel(String imageUrl, String targetURL,String showName) {
         this.imageUrl = imageUrl;
         this.targetURL = targetURL;
+        this.showName = showName;
     }
 
     public String getImageUrl() {
         return imageUrl;
+    }
+    public String getShowName(){
+        return this.showName;
     }
 
     public void setImageUrl(String imageUrl) {
