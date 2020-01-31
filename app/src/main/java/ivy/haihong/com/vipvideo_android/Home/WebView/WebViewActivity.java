@@ -87,18 +87,24 @@ public class WebViewActivity extends AppCompatActivity {
                 ServerManager manager = ServerManager.getInstance();
                 String current = manager.getCurrentServer();
                 String webViewurl = mWebView.getUrl();
-                if (webViewurl.contains("url="))
-                {
-                    mWebView.reload();
-                }
-                else
-                {
-                    String target = current+webViewurl;
-//                    Uri uri = Uri.parse(target);
-//                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-//                    startActivity(intent);
-                    mWebView.loadUrl(target);
-                }
+                String js = "javascript:";
+                js+="var myVideo = document.getElementsByTagName('video');";
+                js+="if(myVideo!=undefined) { alert(myVideo+'--'+myVideo.length);";
+                js+="myVideo[0].play();";
+                js+=" myVideo[0].webkitEnterFullscreen();}";
+                mWebView.loadUrl(js);
+//                if (webViewurl.contains("url="))
+//                {
+//                    mWebView.reload();
+//                }
+//                else
+//                {
+//                    String target = current+webViewurl;
+////                    Uri uri = Uri.parse(target);
+////                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+////                    startActivity(intent);
+//                    mWebView.loadUrl(target);
+//                }
 
                 Log.i("urlget",webViewurl);
 
