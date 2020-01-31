@@ -67,7 +67,8 @@ public class TabHomeFragment extends Fragment {
 
         ArrayList<String> targetURLS = new ArrayList<>();
         targetURLS.add("https://movie.youku.com/");
-        targetURLS.add("https://www.iqiyi.com/dianying/");
+        //targetURLS.add("https://www.iqiyi.com/dianying/");
+        targetURLS.add("https://m.iqiyi.com/v_19rvwbg5lk.html?list=19rr9727c2");
         targetURLS.add("https://www.mgtv.com/movie/");
         targetURLS.add("http://movie.le.com/");
         targetURLS.add("https://v.qq.com/channel/movie");
